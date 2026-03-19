@@ -6,9 +6,16 @@ SQL-based analysis of the Brazilian e-commerce dataset (Olist) to extract insigh
 ## Dataset
 The dataset comes from Olist and includes orders, customers, products, sellers, payments, reviews, and geolocation.
 
+## Dataset Characteristics
+- ~100k orders
+- ~1M order items
+- Multiple relational tables across sales, customers, products, sellers, payments, and reviews
+- Time range: 2016–2018
+
 ⚠️ Raw data is not included in this repository due to size constraints.
 
 To run this project, place the CSV files in:
+`data/raw/`
 
 ## Objectives
 Answer key business questions using SQL, focusing on data modeling, joins, aggregations, and analytical reasoning.
@@ -26,8 +33,10 @@ Answer key business questions using SQL, focusing on data modeling, joins, aggre
 
 ## Tech Stack
 - SQL
-- Python (Pandas, SQLAlchemy)
+- Python
+- Pandas
+- SQLAlchemy
 - Jupyter Notebook
 
 ## Next Steps
-Start with revenue analysis by product category and progressively address all business questions.
+Start with revenue analysis by product category and progressively answer the remaining business questions with SQL queries and business insights.

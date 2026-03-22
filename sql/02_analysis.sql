@@ -1,46 +1,67 @@
 
 USE olist_db;
 
-DESCRIBE olist_orders_dataset;
-DESCRIBE olist_customers_dataset;
-DESCRIBE olist_order_reviews_dataset;
-DESCRIBE olist_order_payments_dataset;
-DESCRIBE olist_order_items_dataset;
-DESCRIBE olist_products_dataset;
-DESCRIBE olist_sellers_dataset;
-DESCRIBE product_category_name_translation;
-DESCRIBE olist_geolocation_dataset;
+-- What product categories generate the highest total revenue?
+-- What is the relationship between delivery delay and review scores overall?
+-- How does delivery delay impact customer reviews across product categories?
 
 
-/*-- Q1. ¿Qué categorías de producto generan más ingresos totales?*/
-
-CREATE VIEW top_categories AS
+CREATE OR REPLACE VIEW top_categories AS
 SELECT pcn.product_category_name_english, SUM(oi.price) AS total_revenue
-FROM olist_order_items_dataset oi 
+FROM olist_order_items_dataset oi
 JOIN olist_products_dataset p ON oi.product_id = p.product_id
 JOIN product_category_name_translation pcn ON pcn.product_category_name = p.product_category_name
-GROUP BY pcn.product_category_name_english
-ORDER by total_revenue DESC;
+GROUP BY pcn.product_category_name_english;
 
-SELECT * FROM top_categories ORDER BY total_revenue DESC LIMIT 10;
+SELECT * FROM top_categories ORDER BY total_revenue DESC LIMIT 10; 
 
 
-/*¿Qué categorías, vendedores o condiciones de entrega se asocian con peores reviews?*/
 
-CREATE VIEW o.olist_orders_dataset AS SELECT o.order_id,o.order_delivered_customer_date, (delivered > estimated) AS retraso FROM orders;
-
-CREATE VIEW worst_reviews AS
-SELECT pcn.product_category_name_english,s.seller_id, 
-FROM olist_order_items_dataset oi 
+CREATE OR REPLACE VIEW category_reviews AS
+SELECT 
+  pcn.product_category_name_english,
+  AVG(r.review_score) AS avg_review,
+  COUNT(*) AS total_reviews,
+  CASE 
+    WHEN o.order_delivered_customer_date > o.order_estimated_delivery_date THEN 'delayed'
+    ELSE 'on_time'
+  END AS delivery_status
+FROM olist_order_reviews_dataset r
+JOIN olist_orders_dataset o ON r.order_id = o.order_id
+JOIN olist_order_items_dataset oi ON o.order_id = oi.order_id
 JOIN olist_products_dataset p ON oi.product_id = p.product_id
-JOIN product_category_name_translation pcn ON pcn.product_category_name = p.product_category_name
-GROUP BY pcn.product_category_name_english
-ORDER by total_revenue DESC;
+JOIN product_category_name_translation pcn ON p.product_category_name = pcn.product_category_name
+GROUP BY pcn.product_category_name_english, delivery_status
+HAVING COUNT(*) >= 5;
+
+SELECT * FROM category_reviews ORDER BY avg_review ASC LIMIT 20;
 
 
 
+CREATE OR REPLACE VIEW seller_reviews AS 
+SELECT 
+  s.seller_id,
+  AVG(r.review_score) AS avg_review,
+  COUNT(*) AS total_reviews,
+  CASE 
+    WHEN o.order_delivered_customer_date > o.order_estimated_delivery_date THEN  'delayed' 
+    ELSE 'on_time'
+  END AS delivery_status
+FROM olist_order_reviews_dataset r
+JOIN olist_orders_dataset o ON r.order_id = o.order_id
+JOIN olist_order_items_dataset oi ON o.order_id = oi.order_id
+JOIN olist_sellers_dataset s ON oi.seller_id = s.seller_id
+GROUP BY s.seller_id, delivery_status;
+
+SELECT * FROM seller_reviews ORDER BY avg_review ASC LIMIT 20;
 
 
--- Q2. 
--- Q3. ¿Cómo varían ventas, número de pedidos y ticket medio según estado o región del cliente?
--- Q4. ¿Qué vendedores combinan mayor volumen de ventas con mejores valoraciones?*/
+
+CREATE OR REPLACE VIEW review_scores AS SELECT AVG(r.review_score), COUNT(*) AS total_scores, CASE 
+    WHEN o.order_delivered_customer_date > o.order_estimated_delivery_date THEN 'delayed'
+    ELSE 'on_time' END AS delivery_status
+FROM olist_order_reviews_dataset r
+JOIN olist_orders_dataset o ON r.order_id = o.order_id
+GROUP BY delivery_status;
+
+SELECT * FROM review_scores ORDER BY total_scores ASC LIMIT 20;

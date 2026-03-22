@@ -11,6 +11,7 @@ SELECT COUNT(*) FROM olist_order_items_dataset;
 SELECT COUNT(*) FROM olist_geolocation_dataset;
 SELECT COUNT(*) FROM olist_products_dataset;
 
+
 SELECT * FROM olist_customers_dataset LIMIT 5;
 SELECT * FROM olist_orders_dataset LIMIT 5;
 SELECT * FROM olist_order_reviews_dataset LIMIT 5;
@@ -36,10 +37,9 @@ FROM olist_orders_dataset o
 JOIN  olist_order_reviews_dataset r
 ON o.order_id = r.order_id;
 
-SELECT COUNT(*)
-FROM olist_order_items_dataset oi
-JOIN olist_sellers_dataset s
-ON oi.seller_id = s.seller_id;
+SELECT geolocation_zip_code_prefix, AVG(geolocation_lat) AS geolocation_lat, AVG(geolocation_lng) AS geolocation_lng
+FROM olist_geolocation_dataset
+GROUP BY geolocation_zip_code_prefix;
 
 SELECT COUNT(*)
 FROM olist_orders_dataset o

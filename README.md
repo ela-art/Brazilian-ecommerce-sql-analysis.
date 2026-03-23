@@ -1,15 +1,16 @@
 # Brazilian E-commerce SQL Analysis (Olist)
 
 ## Project Overview
-This project analyzes the Brazilian E-commerce Public Dataset by Olist using SQL, Python, and Power BI. The goal is to explore sales performance, customer behavior, product category performance, and review patterns, turning raw relational data into business insights and clear visual analysis.
+This project analyzes the Brazilian E-commerce Public Dataset by Olist using SQL, Python, and Power BI. The goal is to transform raw relational data into business insights focused on revenue, delivery performance, and customer satisfaction.
+
+The project combines data loading, SQL analysis, and dashboard storytelling to answer relevant business questions through a clear analytical workflow.
 
 ## Dataset
-The analysis is based on the Olist dataset, which includes information about orders, customers, products, sellers, payments, reviews, and geolocation.
+The analysis is based on the Olist public e-commerce dataset, which includes information about orders, order items, products, payments, reviews, customers, sellers, and geolocation.
 
 ## Dataset Characteristics
-- Approximately 100k orders
-- Approximately 1M order items
-- Multiple relational tables covering sales, customers, products, sellers, payments, reviews, and geolocation
+- Around 100k orders
+- Multiple related tables covering sales, products, reviews, payments, customers, sellers, and logistics
 - Time range: 2016–2018
 
 Raw CSV files are stored locally and are not included in this repository.
@@ -18,46 +19,59 @@ To run this project, place the original files in:
 
 `data/raw/`
 
-## Objectives
-The project aims to answer relevant business questions through SQL analysis, combining data extraction, joins, aggregations, and analytical reasoning.
+## Business Questions
+This project focuses on three main analytical questions:
 
-Main objectives include:
-- Identifying the product categories with the highest total revenue
-- Exploring factors associated with lower customer review scores
-- Comparing sales performance across locations
-- Analyzing seller performance in terms of revenue and customer satisfaction
-
-## Key Business Questions
 - What product categories generate the highest total revenue?
-- Which factors are associated with lower customer reviews, such as delays, sellers, or categories?
-- How do sales, number of orders, and average ticket vary by customer location?
-- Which sellers combine high sales volume with strong customer satisfaction?
+- How does delivery delay impact customer reviews across product categories?
+- What is the relationship between delivery delay and review scores overall?
+
+## Key Insights
+- **Health & Beauty** is the top revenue-generating product category in the dataset.
+- **Delayed deliveries** are associated with significantly lower review scores than on-time deliveries.
+- The negative effect of delivery delays appears across multiple product categories.
 
 ## Project Structure
+- `dashboards/` → Power BI dashboard files
 - `data/raw/` → original local CSV files (not tracked in the repository)
-- `sql/` → SQL scripts for validation checks, analysis, and supporting queries
-- `notebooks/` → Jupyter notebooks for data loading and preparation
-- `dashboards/` → Power BI report files
+- `notebooks/` → Jupyter notebooks for data loading
+- `sql/` → SQL scripts for setup, validation, preparation, and analysis
+- `.gitignore` → ignored local files
 - `README.md` → project documentation
 
 ## Tech Stack
 - SQL
+- MySQL
+- Power BI
 - Python
 - Pandas
 - SQLAlchemy
+- PyMySQL
 - Jupyter Notebook
-- Power BI
 
 ## Workflow
-The project follows these main stages:
-1. Load raw CSV files into the database
-2. Validate structure and data consistency
-3. Write SQL queries to answer business questions
-4. Export analytical outputs for visualization
-5. Build a Power BI report based on the query results
+1. Load raw CSV files into MySQL using Python
+2. Validate table structure and key relationships
+3. Create SQL queries and views to answer business questions
+4. Connect Power BI to MySQL through ODBC
+5. Build a dashboard based on SQL outputs
 
-## Notes
-This project is structured as a portfolio piece focused on analytical thinking, SQL querying, and business-oriented data storytelling. It works with analytical outputs and aggregated views for reporting purposes.
+## Dashboard Focus
+The final dashboard includes three core views:
+- **Total Revenue by Product Category**
+- **Review Score by Category and Delivery Status**
+- **Average Review Score by Delivery Status**
 
-## Next Steps
-The next step is to continue expanding the SQL analysis and improve the Power BI report with clear visuals, concise business insights, and consistent project documentation.
+## Why This Project
+This project was designed as a portfolio piece to demonstrate:
+- SQL querying and joins
+- Data validation and relational thinking
+- Business-oriented analysis
+- Clear communication of insights through dashboards
+
+## Future Improvements
+Possible next steps include:
+- Expanding the analysis with geolocation-based insights
+- Refining naming conventions through cleaner SQL views and aliases
+- Enhancing the dashboard with dynamic KPI cards and layout improvements
+

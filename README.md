@@ -1,5 +1,8 @@
 # Brazilian E-commerce SQL Analysis (Olist)
 
+
+![Power BI dashboard](dashboards/post2.png)
+
 ## Project Overview
 This project analyzes the Brazilian E-commerce Public Dataset by Olist using SQL, Python, and Power BI. The goal is to transform raw relational data into business insights focused on revenue, delivery performance, and customer satisfaction.
 

@@ -23,20 +23,22 @@ To run this project, place the original files in:
 `data/raw/`
 
 ## Business Questions
-This project focuses on three main analytical questions:
+This project focuses on four main analytical questions:
 
 - What product categories generate the highest total revenue?
-- How does delivery delay impact customer reviews across product categories?
 - What is the relationship between delivery delay and review scores overall?
+- How does delivery delay impact customer reviews across product categories?
+- How do delivery delays vary across product categories?
 
 ## Key Insights
 - **Health & Beauty** is the top revenue-generating product category in the dataset.
 - **Delayed deliveries** are associated with significantly lower review scores than on-time deliveries.
-- The negative effect of delivery delays appears across multiple product categories.
+- **Home Comfort 2** shows the highest delayed-order rate, followed by **Furniture Mattress & Upholstery**.
+- The negative effect of delivery delays appears consistently across product categories.
 
 ## Project Structure
 - `dashboards/` → Power BI dashboard files
-- `data/raw/` → original local CSV files (not tracked in the repository)
+- `data/raw/` → original local CSV files (not tracked in this repository)
 - `notebooks/` → Jupyter notebooks for data loading
 - `sql/` → SQL scripts for setup, validation, preparation, and analysis
 - `.gitignore` → ignored local files
@@ -60,10 +62,11 @@ This project focuses on three main analytical questions:
 5. Build a dashboard based on SQL outputs
 
 ## Dashboard Focus
-The final dashboard includes three core views:
+The final dashboard includes four core views:
 - **Total Revenue by Product Category**
-- **Review Score by Category and Delivery Status**
 - **Average Review Score by Delivery Status**
+- **Review Score by Category and Delivery Status**
+- **Percentage of Delayed Orders by Product Category**
 
 ## Why This Project
 This project was designed as a portfolio piece to demonstrate:
@@ -77,4 +80,3 @@ Possible next steps include:
 - Expanding the analysis with geolocation-based insights
 - Refining naming conventions through cleaner SQL views and aliases
 - Enhancing the dashboard with dynamic KPI cards and layout improvements
-

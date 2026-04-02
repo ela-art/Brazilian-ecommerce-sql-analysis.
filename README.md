@@ -36,47 +36,48 @@ This project focuses on four main analytical questions:
 - **Home Comfort 2** shows the highest delayed-order rate, followed by **Furniture Mattress & Upholstery**.
 - The negative effect of delivery delays appears consistently across product categories.
 
+
 ## Project Structure
-- `dashboards/` → Power BI dashboard files
-- `data/raw/` → original local CSV files (not tracked in this repository)
-- `notebooks/` → Jupyter notebooks for data loading
-- `sql/` → SQL scripts for setup, validation, preparation, and analysis
-- `.gitignore` → ignored local files
-- `README.md` → project documentation
+- `dashboards/` → Power BI files and exports
+- `data/processed/` → cleaned datasets ready for analysis
+- `data/raw/` → original data (not tracked)
+- `notebooks/` → data loading and EDA (Python)
+- `sql/` → setup, validation, preparation, and analysis queries
+- `README.md` → documentation
 
 ## Tech Stack
-- SQL
-- MySQL
-- Power BI
-- Python
-- Pandas
-- SQLAlchemy
-- PyMySQL
-- Jupyter Notebook
+SQL · MySQL · Power BI · Python · Pandas · SQLAlchemy · PyMySQL · Jupyter
 
 ## Workflow
-1. Load raw CSV files into MySQL using Python
-2. Validate table structure and key relationships
-3. Create SQL queries and views to answer business questions
-4. Connect Power BI to MySQL through ODBC
-5. Build a dashboard based on SQL outputs
+Data ingestion → validation → SQL analysis → visualization
 
-## Dashboard Focus
-The final dashboard includes four core views:
-- **Total Revenue by Product Category**
-- **Average Review Score by Delivery Status**
-- **Review Score by Category and Delivery Status**
-- **Percentage of Delayed Orders by Product Category**
+1. Load cleaned CSVs into MySQL (Python + SQLAlchemy)  
+2. Validate schema, keys, and data integrity  
+3. Prepare data with SQL transformations  
+4. Analyze with SQL queries focused on business questions  
+5. Build dashboard in Power BI connected to MySQL  
 
-## Why This Project
-This project was designed as a portfolio piece to demonstrate:
-- SQL querying and joins
-- Data validation and relational thinking
-- Business-oriented analysis
-- Clear communication of insights through dashboards
+## Key Analysis
+- Revenue distribution by product category  
+- Impact of delivery performance on customer reviews  
+- Relationship between category and satisfaction  
+- Operational insight: delayed orders by category  
 
-## Future Improvements
-Possible next steps include:
-- Expanding the analysis with geolocation-based insights
-- Refining naming conventions through cleaner SQL views and aliases
-- Enhancing the dashboard with dynamic KPI cards and layout improvements
+## Dashboard
+Designed to support business decision-making with:
+- Clear KPI-focused visuals  
+- Category-level comparisons  
+- Delivery performance insights  
+- Customer satisfaction patterns  
+
+## What This Demonstrates
+- Strong SQL fundamentals (joins, aggregations, filtering)  
+- Relational thinking and data validation  
+- Ability to structure an end-to-end data project  
+- Translation of data into business insights  
+
+## Next Steps
+- Incorporate geolocation analysis (ZIP code)  
+- Improve SQL modularization (views, naming)  
+- Add advanced KPIs and storytelling in Power BI  
+- Extend analysis to customer segmentation and payments  

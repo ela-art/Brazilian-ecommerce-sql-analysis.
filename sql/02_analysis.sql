@@ -1,23 +1,6 @@
 
 USE olist_db;
 
-SHOW TABLES;
-DESC category_reviews;
-DESC olist_customers_dataset;
-DESC olist_geolocation_dataset;
-DESC olist_order_items_dataset;
-DESC olist_order_payments_dataset;
-DESC olist_order_reviews_dataset;
-DESC olist_orders_dataset;
-DESC olist_products_dataset;
-DESC olist_sellers_dataset;
-DESC product_category_name_translation;
-DESC review_scores;
-DESC top_categories;
-DESC v_seller_reviews;
-DESC v_top_categories;
-DESC worst_reviews;
-
 /*orders → se une con customers por customer_id
 orders → se une con order_items por order_id
 y desde order_items sigues:
@@ -66,7 +49,10 @@ SELECT * FROM category_reviews ORDER BY avg_review ASC LIMIT 20;
 
 /*What is the relationship between delivery delays and review scores overall?*/
 
-CREATE OR REPLACE VIEW review_scores AS SELECT AVG(r.review_score), COUNT(*) AS total_scores, CASE 
+CREATE OR REPLACE VIEW review_scores AS 
+SELECT AVG(r.review_score) AS avg_review_score, 
+COUNT(*) AS total_scores, 
+CASE 
     WHEN o.order_delivered_customer_date > o.order_estimated_delivery_date THEN 'delayed'
     ELSE 'on_time' END AS delivery_status
 FROM olist_order_reviews_dataset r
@@ -74,6 +60,7 @@ JOIN olist_orders_dataset o ON r.order_id = o.order_id
 GROUP BY delivery_status;
 
 SELECT * FROM review_scores ORDER BY total_scores ASC LIMIT 20;
+
 
 CREATE OR REPLACE VIEW delivery_by_category AS
 SELECT 
@@ -89,5 +76,4 @@ JOIN product_category_name_translation pcn ON p.product_category_name = pcn.prod
 GROUP BY pcn.product_category_name_english;
 
 SELECT * FROM delivery_by_category ORDER BY pct_delayed DESC LIMIT 20;
-
 

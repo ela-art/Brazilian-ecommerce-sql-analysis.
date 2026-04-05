@@ -81,3 +81,6 @@ Designed to support business decision-making with:
 - Improve SQL modularization (views, naming)  
 - Add advanced KPIs and storytelling in Power BI  
 - Extend analysis to customer segmentation and payments  
+
+Data Analyst
+Ela Ruiz

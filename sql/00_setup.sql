@@ -8,5 +8,3 @@ CREATE DATABASE IF NOT EXISTS olist_db;
 USE olist_db;
 
 
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'admin1234';
-FLUSH PRIVILEGES;

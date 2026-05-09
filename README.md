@@ -33,7 +33,7 @@ This project focuses on four main analytical questions:
 ## Key Insights
 - **Health & Beauty** is the top revenue-generating product category in the dataset.
 - **Delayed deliveries** are associated with significantly lower review scores than on-time deliveries.
-- **Home Comfort 2** shows the highest delayed-order rate, followed by **Furniture Mattress & Upholstery**.
+- **Home Comfort** shows the highest delayed-order rate, followed by **Furniture Mattress & Upholstery**.
 - The negative effect of delivery delays appears consistently across product categories.
 
 
@@ -44,6 +44,21 @@ This project focuses on four main analytical questions:
 - `notebooks/` → data loading and EDA (Python)
 - `sql/` → setup, validation, preparation, and analysis queries
 - `README.md` → documentation
+
+## Data Model
+
+Olist is not a flat dataset. Information is distributed across distinct entities — orders, customers, products, payments, reviews, sellers, and geolocation — each at a different level of detail.
+
+The relational model was the right approach for the SQL layer because:
+- It avoids duplicating data and mixing metrics across different granularities
+- It reflects the actual business relationships between entities
+- It enables coherent JOINs without inflating row counts or breaking aggregation logic
+
+`orders` is the central bridge table. From it you connect customers, items, payments, and reviews. From `order_items` you reach products and sellers. This structure makes it possible to analyze revenue, delivery delays, and review scores at the correct grain — without double-counting or misattributing metrics.
+
+In Power BI, each analytical view (`top_categories`, `delivery_by_category`, `category_reviews`, `review_scores`) answers an independent business question and is loaded as a standalone table. Only `delivery_by_category` and `top_categories` share a 1:1 relationship via `product_category_name_english` to enable cross-filtering by category in the dashboard.
+
+---
 
 ## Tech Stack
 SQL · MySQL · Power BI · Python · Pandas · SQLAlchemy · PyMySQL · Jupyter
